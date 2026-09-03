@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía Análisis Plan Premium 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #f0f4f8; }
+        .chart-container { position: relative; width: 100%; max-width: 700px; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
+        @media (max-width: 768px) { .chart-container { height: 290px; } }
+        .vibrant-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #3b82f6 100%); }
+        .card-elevation { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); transition: transform 0.2s; }
+        .card-elevation:hover { transform: translateY(-2px); }
+        .step-circle { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold; }
+    </style>
+</head>
+<body class="text-slate-800">
+
+<div class="min-h-screen">
+    
+    <!-- HEADER -->
+    <header class="vibrant-gradient text-white py-12 px-6 shadow-lg">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div>
+                    <span class="inline-block bg-blue-500/30 text-blue-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2">Julio 2026 — Informe consolidado</span>
+                    <h1 class="text-3xl md:text-5xl font-black tracking-tight mb-2 uppercase">Análisis Financiero &amp; Regional</h1>
+                    <p class="text-blue-100 text-lg font-light">Plan Premium vs. Radicación</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 text-center min-w-[240px]">
+                    <span class="block text-xs uppercase tracking-widest opacity-80 mb-1">Diferencia Acumulada Total</span>
+                    <span class="text-4xl font-black">$2,970MM</span>
+                    <span class="block text-xs mt-2 font-medium bg-emerald-500 py-1 px-3 rounded-full text-white">96,04% Cobertura Global</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto py-10 px-6 space-y-12">
+
+        <!-- DIAGNÓSTICO GENERAL -->
+        <section id="introduction">
+            <div class="bg-white rounded-2xl p-8 card-elevation">
+                <h2 class="text-2xl font-bold text-blue-900 mb-4 border-l-4 border-blue-600 pl-4">Diagnóstico General y Consolidado</h2>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    A corte de julio de 2026, la facturación total radicada alcanzó los <strong>$74,90 Miles de Millones (MM) COP</strong> frente a un costo efectivo imputado en el Plan Premium de <strong>$71,93 Miles de Millones (MM) COP</strong>, alcanzando una cobertura global del 96,04%. El análisis regional refleja una alta concentración en la <strong>Regional Bogotá</strong>, la cual representa más del 75% de la radicación total ($56,36 MM) y presenta la mayor brecha flotante del sistema ($16,70 MM), impulsada principalmente por grandes prestadores de la capital.
+                </p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+                    <div class="text-center p-4 rounded-xl bg-blue-50 border border-blue-100">
+                        <span class="block text-3xl font-bold text-blue-800">$74,90 MM</span>
+                        <span class="text-xs text-slate-500 uppercase font-bold tracking-wider">Total Radicado</span>
+                    </div>
+                    <div class="text-center p-4 rounded-xl bg-emerald-50 border border-emerald-100">
+                        <span class="block text-3xl font-bold text-emerald-600">$71,93 MM</span>
+                        <span class="text-xs text-slate-500 uppercase font-bold tracking-wider">Costos Premium</span>
+                    </div>
+                    <div class="text-center p-4 rounded-xl bg-orange-50 border border-orange-100">
+                        <span class="block text-3xl font-bold text-orange-600">$2,97 MM</span>
+                        <span class="text-xs text-slate-500 uppercase font-bold tracking-wider">Brecha Flotante</span>
+                    </div>
+                    <div class="text-center p-4 rounded-xl bg-indigo-50 border border-indigo-100">
+                        <span class="block text-3xl font-bold text-indigo-700">6 Regionales</span>
+                        <span class="text-xs text-slate-500 uppercase font-bold tracking-wider">Cobertura Evaluada</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TENDENCIA TEMPORAL Y COBERTURA -->
+        <section id="trends">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white rounded-2xl p-8 card-elevation">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Evolución Mensual: Radicación vs. Premium</h3>
+                    <p class="text-sm text-slate-500 mb-6">Comparativa mensual del valor facturado frente al volumen imputado en sistema (Enero - Julio 2026).</p>
+                    <div class="chart-container">
+                        <canvas id="monthlyTrendChart"></canvas>
+                    </div>
+                    <div class="mt-6 p-4 bg-slate-50 rounded-lg text-xs text-slate-600 italic">
+                        &#9432; Durante el primer trimestre (Q1) y en julio, la imputación Premium superó a la radicación (cobertura &gt; 100%), mientras que en abril ($13,85 MM) y junio ($12,65 MM) se registraron los mayores picos de radicación.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 card-elevation">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Tasa de Cobertura Mensual (%)</h3>
+                    <p class="text-sm text-slate-500 mb-6">Proporción procesada por el Plan Premium mes a mes.</p>
+                    <div class="chart-container">
+                        <canvas id="coverageDonutChart"></canvas>
+                    </div>
+                   
+                </div>
+            </div>
+        </section>
+
+        <!-- NUEVA SECCIÓN: ANÁLISIS COMPARATIVO REGIONAL -->
+        <section id="regional-analysis">
+            <div class="bg-white rounded-2xl p-8 card-elevation space-y-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-blue-900 mb-2 border-l-4 border-blue-600 pl-4">Análisis Comparativo por Regionales</h2>
+                    <p class="text-slate-600">
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Gráfico Comparativo Regional -->
+                    <div class="lg:col-span-7">
+                        <h4 class="text-base font-bold text-slate-700 mb-4 text-center lg:text-left">Radicación vs. Plan Premium por Regional</h4>
+                        <div class="chart-container" style="height: 360px;">
+                            <canvas id="regionalChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Métricas y Highlights por Regional -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-bold text-slate-800 text-sm">BOGOTÁ</span>
+                                <span class="text-xs px-2 py-1 bg-red-100 text-red-700 font-bold rounded">70,4% Cobertura</span>
+                            </div>
+                            <div class="text-xs text-slate-500 flex justify-between">
+                                <span>Radicado: $56,36 MM</span>
+                                <span>Brecha: $16,70 MM</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2 mt-2">
+                                <div class="bg-blue-600 h-2 rounded-full" style="width: 70.4%"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-bold text-slate-800 text-sm">MEDELLÍN</span>
+                                <span class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 font-bold rounded">111,9% Cobertura</span>
+                            </div>
+                            <div class="text-xs text-slate-500 flex justify-between">
+                                <span>Radicado: $4,13 MM</span>
+                                <span>Brecha: -$0,49 MM</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2 mt-2">
+                                <div class="bg-emerald-500 h-2 rounded-full" style="width: 100%"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-bold text-slate-800 text-sm">CALI</span>
+                                <span class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 font-bold rounded">165,0% Cobertura</span>
+                            </div>
+                            <div class="text-xs text-slate-500 flex justify-between">
+                                <span>Radicado: $5,19 MM</span>
+                                <span>Brecha: -$3,37 MM</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2 mt-2">
+                                <div class="bg-emerald-500 h-2 rounded-full" style="width: 100%"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-bold text-slate-800 text-sm">BARRANQUILLA</span>
+                                <span class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 font-bold rounded">127,0% Cobertura</span>
+                            </div>
+                            <div class="text-xs text-slate-500 flex justify-between">
+                                <span>Radicado: $3,81 MM</span>
+                                <span>Brecha: -$1,03 MM</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2 mt-2">
+                                <div class="bg-emerald-500 h-2 rounded-full" style="width: 100%"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-bold text-slate-800 text-sm">CENTRO ORIENTE</span>
+                                <span class="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 font-bold rounded">177,9% Cobertura</span>
+                            </div>
+                            <div class="text-xs text-slate-500 flex justify-between">
+                                <span>Radicado: $2,77 MM</span>
+                                <span>Brecha: -$2,16 MM</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2 mt-2">
+                                <div class="bg-emerald-500 h-2 rounded-full" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla Resumen Regional -->
+                <div class="overflow-x-auto border border-slate-100 rounded-xl">
+                    <table class="w-full text-sm text-left text-slate-600">
+                        <thead class="bg-slate-800 text-white uppercase text-xs">
+                            <tr>
+                                <th class="py-3 px-4">Regional / Territorio</th>
+                                <th class="py-3 px-4 text-right">Radicación</th>
+                                <th class="py-3 px-4 text-right">Plan Premium</th>
+                                <th class="py-3 px-4 text-right">Brecha (COP)</th>
+                                <th class="py-3 px-4 text-center">% Cobertura</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-3 px-4 font-semibold text-slate-800">BOGOTÁ</td>
+                                <td class="py-3 px-4 text-right">$56.357.333.418</td>
+                                <td class="py-3 px-4 text-right">$39.652.765.746</td>
+                                <td class="py-3 px-4 text-right font-medium text-red-600">$16.704.567.672</td>
+                                <td class="py-3 px-4 text-center"><span class="px-2 py-1 bg-red-100 text-red-700 font-bold rounded text-xs">70,36%</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-3 px-4 font-semibold text-slate-800">MEDELLÍN</td>
+                                <td class="py-3 px-4 text-right">$4.127.753.046</td>
+                                <td class="py-3 px-4 text-right">$4.617.957.748</td>
+                                <td class="py-3 px-4 text-right font-medium text-emerald-600">-$490.204.702</td>
+                                <td class="py-3 px-4 text-center"><span class="px-2 py-1 bg-emerald-100 text-emerald-700 font-bold rounded text-xs">111,88%</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-3 px-4 font-semibold text-slate-800">CALI</td>
+                                <td class="py-3 px-4 text-right">$5.189.149.880</td>
+                                <td class="py-3 px-4 text-right">$8.562.527.737</td>
+                                <td class="py-3 px-4 text-right font-medium text-emerald-600">-$3.373.377.857</td>
+                                <td class="py-3 px-4 text-center"><span class="px-2 py-1 bg-emerald-100 text-emerald-700 font-bold rounded text-xs">165,01%</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-3 px-4 font-semibold text-slate-800">BARRANQUILLA</td>
+                                <td class="py-3 px-4 text-right">$3.805.378.259</td>
+                                <td class="py-3 px-4 text-right">$4.831.192.841</td>
+                                <td class="py-3 px-4 text-right font-medium text-emerald-600">-$1.025.814.582</td>
+                                <td class="py-3 px-4 text-center"><span class="px-2 py-1 bg-emerald-100 text-emerald-700 font-bold rounded text-xs">126,96%</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-3 px-4 font-semibold text-slate-800">CENTRO ORIENTE</td>
+                                <td class="py-3 px-4 text-right">$2.769.010.087</td>
+                                <td class="py-3 px-4 text-right">$4.925.703.610</td>
+                                <td class="py-3 px-4 text-right font-medium text-emerald-600">-$2.156.693.523</td>
+                                <td class="py-3 px-4 text-center"><span class="px-2 py-1 bg-emerald-100 text-emerald-700 font-bold rounded text-xs">177,89%</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-3 px-4 font-semibold text-slate-800">BUCARAMANGA</td>
+                                <td class="py-3 px-4 text-right">$2.655.397.439</td>
+                                <td class="py-3 px-4 text-right">$4.303.353.035</td>
+                                <td class="py-3 px-4 text-right font-medium text-emerald-600">-$1.647.955.596</td>
+                                <td class="py-3 px-4 text-center"><span class="px-2 py-1 bg-emerald-100 text-emerald-700 font-bold rounded text-xs">162,06%</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-3 px-4 font-semibold text-slate-800">SIN DEFINIR</td>
+                                <td class="py-3 px-4 text-right">$0</td>
+                                <td class="py-3 px-4 text-right">$5.040.791.096</td>
+                                <td class="py-3 px-4 text-right font-medium text-slate-600">-$5.040.791.096</td>
+                                <td class="py-3 px-4 text-center"><span class="px-2 py-1 bg-slate-100 text-slate-700 font-bold rounded text-xs">N/A</span></td>
+                            </tr>
+                            <tr class="bg-slate-100 font-bold text-slate-900">
+                                <td class="py-3 px-4">TOTAL CONSOLIDADO</td>
+                                <td class="py-3 px-4 text-right">$74.904.022.129</td>
+                                <td class="py-3 px-4 text-right">$71.934.291.813</td>
+                                <td class="py-3 px-4 text-right text-red-700">$2.969.730.316</td>
+                                <td class="py-3 px-4 text-center">96,04%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANÁLISIS DE CONCENTRACIÓN Y PRESTADORES -->
+        <section id="concentration">
+            <div class="bg-white rounded-2xl p-8 card-elevation">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-blue-900 mb-4 border-l-4 border-blue-600 pl-4">Concentración por Prestadores</h2>
+                    <p class="text-slate-600">
+                        Los prestadores principales explican la dinámica de la brecha del periodo. <strong>Centro Médico Colsanitas</strong> concentra el 78,16% de la radicación total acumulada a julio de 2026.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 p-4 border border-slate-100 rounded-xl hover:bg-slate-50 transition-colors">
+                            <div class="bg-blue-600 text-white p-3 rounded-xl font-bold text-lg">78%</div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Centro Médico Colsanitas</h4>
+                                <p class="text-xs text-slate-500">Radicado: $58,55 MM | Brecha: $10,81 MM (81,54% Cobertura)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 border border-slate-100 rounded-xl hover:bg-slate-50 transition-colors">
+                            <div class="bg-orange-500 text-white p-3 rounded-xl font-bold text-lg">0%</div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">UNIDIME S A S</h4>
+                                <p class="text-xs text-slate-500">Radicado: $0,59 MM | Procesado: $0 MM (0,00% Cobertura)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 border border-slate-100 rounded-xl hover:bg-slate-50 transition-colors">
+                            <div class="bg-emerald-500 text-white p-3 rounded-xl font-bold text-lg">100.4%</div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">SANAR HELATHCARE SAS</h4>
+                                <p class="text-xs text-slate-500">Radicado: $2,40 MM | Excelente concordancia de datos</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="providerGapChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PLAN DE ACCIÓN ESTRATÉGICO -->
+        <section id="strategy">
+            <div class="bg-slate-900 text-white rounded-3xl p-10 card-elevation overflow-hidden relative">
+                <div class="relative z-10">
+                    <h2 class="text-3xl font-black mb-8">Limitantes en el Análisis</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        
+                        <div class="flex flex-col gap-3">
+                            <div class="step-circle bg-blue-500">1</div>
+                            <h5 class="font-bold text-lg">Escalera de Radicación</h5>
+                            <p class="text-sm text-slate-400">Teniendo en cuenta que existen facturas pendientes por radicar, esto puedo ocasionar el desfase temporal en el análisis</p>
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <div class="step-circle bg-blue-500">2</div>
+                            <h5 class="font-bold text-lg">Segmentación por Ámbitos</h5>
+                            <p class="text-sm text-slate-400">El informe de radicación no cubre completamente los ámbitos de prestación de servicios de salud que estructuran el informe de costos del plan premium.</p>
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <div class="step-circle bg-blue-500">3</div>
+                            <h5 class="font-bold text-lg">Segmentación por Edad </h5>
+                            <p class="text-sm text-slate-400">El informe de radicación no clasifica mayores y menores de 60 años, variable clave del plan premium.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-8 px-6 text-center text-slate-400 text-sm">
+        <p>&copy; 2026 - Gerencia de Analitica</p>
+    </footer>
+
+</div>
+
+<script>
+    const vibrantPalette = {
+        blue: '#1e40af',
+        lightBlue: '#3b82f6',
+        orange: '#f97316',
+        emerald: '#10b981',
+        indigo: '#6366f1',
+        red: '#dc2626'
+    };
+
+    const tooltipConfig = {
+        callbacks: {
+            title: function(tooltipItems) {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                return Array.isArray(label) ? label.join(' ') : label;
+            }
+        }
+    };
+
+    function wrapLabel(label) {
+        if (typeof label !== 'string' || label.length <= 16) return label;
+        const words = label.split(' ');
+        const lines = [];
+        let currentLine = '';
+        words.forEach(word => {
+            if ((currentLine + word).length > 16) {
+                lines.push(currentLine.trim());
+                currentLine = word + ' ';
+            } else {
+                currentLine += word + ' ';
+            }
+        });
+        lines.push(currentLine.trim());
+        return lines;
+    }
+
+    // 1. Monthly Trend Chart (Valores en MM COP)
+    const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'];
+    const radData = [9649, 9353, 8959, 13853, 10404, 12649, 10039]; 
+    const premData = [10127, 10334, 10709, 10416, 10189, 9756, 10403]; 
+
+    new Chart(document.getElementById('monthlyTrendChart'), {
+        type: 'line',
+        data: {
+            labels: months,
+            datasets: [
+                {
+                    label: 'Radicación (MM COP)',
+                    data: radData,
+                    borderColor: vibrantPalette.blue,
+                    backgroundColor: vibrantPalette.blue + '20',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3,
+                    pointRadius: 5
+                },
+                {
+                    label: 'Plan Premium (MM COP)',
+                    data: premData,
+                    borderColor: vibrantPalette.orange,
+                    backgroundColor: vibrantPalette.orange + '20',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3,
+                    pointRadius: 5
+                }
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+                tooltip: tooltipConfig,
+                legend: { position: 'bottom' }
+            },
+            scales: {
+                y: { beginAtZero: false, grid: { display: true, color: '#f1f5f9' } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+
+    // 2. Cobertura Donut Chart (%)
+    new Chart(document.getElementById('coverageDonutChart'), {
+        type: 'doughnut',
+        data: {
+            labels: months,
+            datasets: [{
+                data: [105.0, 110.5, 119.5, 75.2, 97.9, 77.1, 103.6],
+                backgroundColor: [
+                    vibrantPalette.emerald, 
+                    vibrantPalette.emerald, 
+                    vibrantPalette.emerald, 
+                    vibrantPalette.red, 
+                    vibrantPalette.emerald, 
+                    vibrantPalette.red,
+                    vibrantPalette.emerald
+                ],
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) { return `Cobertura: ${context.raw}%`; }
+                    }
+                },
+                legend: { position: 'bottom' }
+            },
+            cutout: '70%'
+        }
+    });
+
+    // 3. Regional Comparative Chart (Valores en MM COP)
+    const regionLabels = ['Bog', 'Med', 'Cali', 'Bar', 'Cen.Ort', 'Buc'].map(wrapLabel);
+    const regionalRadication = [56357, 4128, 5189, 3805, 2769, 2655];
+    const regionalPremium = [39653, 4618, 8563, 4831, 4926, 4303];
+
+    new Chart(document.getElementById('regionalChart'), {
+        type: 'bar',
+        data: {
+            labels: regionLabels,
+            datasets: [
+                {
+                    label: 'Radicación (MM)',
+                    data: regionalRadication,
+                    backgroundColor: vibrantPalette.blue,
+                    borderRadius: 6
+                },
+                {
+                    label: 'Plan Premium (MM)',
+                    data: regionalPremium,
+                    backgroundColor: vibrantPalette.lightBlue,
+                    borderRadius: 6
+                }
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+                tooltip: tooltipConfig,
+                legend: { position: 'bottom' }
+            },
+            scales: {
+                y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+
+    // 4. Provider Gap Chart (Diferencia/Brecha en MM COP)
+    const providers = [
+        'Centro Médico Colsanitas',
+        'Clínica Santa Mónica',
+        'Medicina Integral EMI S.A.',
+        'UNIDIME S A S',
+        'Servicios ADOM S.A.S.'
+    ].map(wrapLabel);
+
+    const gapValues = [10807, 1356, 1313, 594, 435];
+
+    new Chart(document.getElementById('providerGapChart'), {
+        type: 'bar',
+        data: {
+            labels: providers,
+            datasets: [{
+                label: 'Brecha Pendiente (MM COP)',
+                data: gapValues,
+                backgroundColor: [
+                    vibrantPalette.blue,
+                    vibrantPalette.lightBlue,
+                    vibrantPalette.indigo,
+                    vibrantPalette.orange,
+                    vibrantPalette.emerald
+                ],
+                borderRadius: 8,
+                barThickness: 24
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+                tooltip: tooltipConfig,
+                legend: { display: false }
+            },
+            scales: {
+                x: { grid: { display: true, color: '#f1f5f9' } },
+                y: { grid: { display: false } }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
